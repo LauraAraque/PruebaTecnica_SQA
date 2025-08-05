@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+}
+
+ext {
+    karateVersion = '1.5.0'
+}
+
+dependencies {
+    testImplementation "io.karatelabs:karate-junit5:${karateVersion}"
+}
+
+sourceSets {
+    test {
+        resources {
+            srcDir file('src/test/java')
+            exclude '**/*.java'
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+    systemProperty "karate.options", System.properties.getProperty("karate.options")
+    systemProperty "karate.env", System.properties.getProperty("karate.env")
+    outputs.upToDateWhen { false }
+}
+
+repositories {
+    mavenCentral()
+}
